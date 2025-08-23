@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Us - Carrie Hotel</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .our-room-head {
+      font-weight: bold;
+      text-align: center;
+      font-size: 36px;
+      margin: 30px 0;
+    }
+
+    .contact input,
+    .contact textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: 16px;
+      resize: vertical;
+    }
+
+    .contact textarea {
+      height: 150px;
+    }
+
+    .send_btn {
+      background-color: #e60000;
+      color: #fff;
+      padding: 10px 30px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .send_btn:hover {
+      background-color: #c20000;
+    }
+
+    .map-responsive iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      border: 0;
+    }
+
+    .site-footer {
+      background: #111726;
+      color: #fff;
+      padding: 50px 0 0 0;
+      border-top: 5px solid #e60000;
+      margin-top: 50px;
+      width: 100%;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding-bottom: 30px;
+      gap: 30px;
+    }
+
+    .footer-col {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .footer-col h3 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .footer-col hr {
+      width: 60px;
+      border: 2px solid #e60000;
+      margin: 10px 0 20px;
+    }
+
+    .footer-icon {
+      margin-right: 10px;
+    }
+
+    .footer-menu {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-menu li {
+      margin-bottom: 10px;
+    }
+
+    .footer-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .footer-menu a:hover,
+    .footer-menu a.active {
+      color: #e60000;
+    }
+
+    .footer-input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      border: none;
+      background: #f2f2f2;
+      border-radius: 4px;
+    }
+
+    .footer-btn {
+      background: #fff;
+      color: #e60000;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .footer-btn:hover {
+      background: #e60000;
+      color: #fff;
+    }
+
+    .footer-social a {
+      color: #fff;
+      font-size: 20px;
+      margin-right: 15px;
+      text-decoration: none;
+    }
+
+    .footer-social a:hover {
+      color: #e60000;
+    }
+
+    @media (max-width: 768px) {
+      .footer-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-black">
+      <div class="container-fluid">
+        <div class="footer-social">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navlist">
+          <ul class="navbar-nav me-4">
+            <li class="nav-item">
+              <a class="nav-link "href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="About-us.html">ABOUT</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Our-room.html">OUR HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Gallery.html">GALLERY</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Blog.html">BLOG</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Contact-us.html">CONTACT US</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.php">Sign In</a>
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" href="register.php">Register</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+</header>
+
+<!-- Heading -->
+<div class="container-fluid-head">
+  <h1 class="our-room-head">CONTACT US</h1>
+</div>
+
+<!-- Contact Form & Map -->
+<div class="contact py-5">
+  <div class="container">
+    <div class="row g-5">
+      <!-- Contact Form -->
+      <div class="col-md-6">
+        <form id="request" class="main_form">
+          <input class="form-control" placeholder="Name" type="text" name="Name">
+          <input class="form-control" placeholder="Email" type="email" name="Email">
+          <input class="form-control" placeholder="Phone Number" type="text" name="Phone">
+          <textarea class="form-control" placeholder="Message" name="Message"></textarea>
+          <button type="submit" class="send_btn mt-2">Send</button>
+        </form>
+      </div>
+
+      <!-- Map -->
+      <div class="col-md-6">
+        <div class="map_main">
+          <div class="map-responsive">
+            <iframe
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Paris+France"
+              width="600"
+              height="400"
+              frameborder="0"
+              style="border:0; width: 100%; height: 600px;"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer (Full Width) -->
+<footer class="site-footer">
+  <div class="container-fluid">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>Contact US</h3>
+        <hr>
+        <p><span class="footer-icon">&#x1F4CD;</span> Zone 1, Bulan, Sorsogon</p>
+        <p><span class="footer-icon">&#x1F4F1;</span> 09682444616</p>
+        <p><span class="footer-icon">&#x1F4F1;</span> 09615542724</p>
+        <p><span class="footer-icon">&#x2709;&#xFE0F;</span> Carrie-Hotel@gmail.com</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Menu Link</h3>
+        <hr>
+        <ul class="footer-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="About-us.html">About</a></li>
+          <li><a href="Our-room.html">Our Room</a></li>
+          <li><a href="Gallery.html">Gallery</a></li>
+          <li><a href="Blog.html" class="active">Blog</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Newsletter</h3>
+        <hr>
+        <input type="email" class="footer-input" placeholder="Enter your email">
+        <div class="footer-social mt-3">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

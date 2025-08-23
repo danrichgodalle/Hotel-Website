@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hotel Website</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- FontAwesome CDN for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Inline Style for Gallery -->
+    <style>
+      .gallery-container {
+        background-color: #f8f9fa;
+        padding: 60px 0;
+      }
+
+      .gallery-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-image:hover {
+        transform: scale(1.05);
+      }
+
+      .container-fluid-head {
+        color: rgb(0, 0, 0);
+        padding: 60px 0;
+        text-align: center;
+      }
+
+      .our-room-head {
+        font-size: 48px;
+        font-weight: bold;
+        letter-spacing: 2px;
+      }
+
+    </style>
+  </head>
+  <body>
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-black">
+    <div class="container-fluid">
+      <!-- Social media icons -->
+      <div class="footer-social me-3">
+        <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="text-white me-2"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+      </div>
+
+      <!-- Navbar toggler (for mobile) -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto me-4">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="About-us.html">ABOUT</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="Our-room.html">OUR HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="Gallery.html">GALLERY</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="Blog.html">BLOG</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="Contact-us.html">CONTACT US</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="login.php">Sign In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="register.php">Register</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+<main>
+  <!-- Gallery Page Title -->
+  <div class="container-fluid-head">
+    <h1 class="our-room-head">GALLERY</h1>
+  </div>
+
+  <!-- Gallery Section -->
+  <div class="gallery-container">
+    <div class="container">
+      <div class="text-center mb-4">
+        <p>Explore our gallery to see the beauty and elegance of our hotel.</p>
+      </div>
+
+      <div class="row g-3">
+        <!-- First Row of Images -->
+        <div class="col-md-3 col-sm-6">
+          <img class="gallery-image img-fluid" src="image/carrie1.jpg" alt="">
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <img class="gallery-image img-fluid" src="image/carrie1.jpg" alt="">
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <img class="gallery-image img-fluid" src="image/carrie1.jpg" alt="">
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <img class="gallery-image img-fluid" src="image/carrie1.jpg" alt="">
+        </div>
+
+        <!-- Second Row of Images -->
+        <div class="col-md-3 col-sm-6">
+         <img class="gallery-image img-fluid" src="image/carrie1.jpg" alt="">
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <img class="gallery-image img-fluid" src="image/carrie1.jpg" alt="">
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <img class="gallery-image img-fluid" src="image/carrie1.jpg" alt="">
+        </div>
+        <div class="col-md-3 col-sm-6">
+         <img class="gallery-image img-fluid" src="image/carrie1.jpg" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-col">
+      <h3>Contact US</h3>
+      <hr>
+      <p><span class="footer-icon">&#x1F4CD;</span> Zone 1, Bulan, Sorsogon</p>
+      <p><span class="footer-icon">&#x1F4F1;</span> 09682444616</p>
+      <p><span class="footer-icon">&#x1F4F1;</span> 09615542724</p>
+      <p><span class="footer-icon">&#x2709;&#xFE0F;</span> Carrie-Hotel@gmail.com</p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Menu Link</h3>
+      <hr>
+      <ul class="footer-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="About-us.html">About</a></li>
+        <li><a href="Our-room.html">Our Room</a></li>
+        <li><a href="Gallery.html">Gallery</a></li>
+        <li><a href="Blog.html" class="active">Blog</a></li>
+        <li><a href="Contact-us.html">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Newsletter</h3>
+      <hr>
+      <input type="email" class="footer-input" placeholder="Enter your email">
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
