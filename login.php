@@ -38,113 +38,290 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Coiny&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Font Awesome for eye icon -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
     }
-    .login-container {
-      background: white;
-      padding: 30px 40px;
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      width: 400px;
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    /* Section Background */
+    .register-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: url('image/carrie-hotel-main.png') no-repeat center center/cover;
+    }
+
+    .register-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45); /* Overlay */
+      z-index: 0;
+    }
+
+    /* Register Container */
+    .register-container {
+      position: absolute;
+      top: 50%;
+      left: 25%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 30px 35px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      width: 500px;
       max-width: 90%;
+      z-index: 1;
     }
-    .login-container h2 {
+
+    /* Heading */
+    h2 {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
+      color: #660B05;
+      font-family: "Coiny", system-ui;
+    }
+
+    /* Form Group */
+    .form-group {
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
       color: #333;
     }
-    .form-group {
-      margin-bottom: 20px;
+
+    /* Input with Icon */
+    .input-wrapper {
+      position: relative;
     }
-    .form-group input[type="email"],
-    .form-group input[type="password"] {
+
+    .input-wrapper input {
       width: 100%;
-      padding: 12px 15px;
+      padding: 10px 40px 10px 12px; /* padding right for eye icon */
       border: 1px solid #ccc;
       border-radius: 5px;
-      box-sizing: border-box;
       font-size: 16px;
-      transition: border-color 0.3s ease;
+      transition: border 0.3s ease;
     }
-    .form-group input[type="email"]:focus,
-    .form-group input[type="password"]:focus {
-      border-color: #4CAF50;
+
+    .input-wrapper input:focus {
+      border-color: #007bff;
       outline: none;
     }
-    input[type="submit"] {
-      width: 100%;
-      background-color: #4CAF50;
-      border: none;
-      padding: 14px 0;
-      border-radius: 5px;
-      color: white;
-      font-size: 18px;
+
+    /* Eye Icon */
+    .input-wrapper .fa-eye,
+    .input-wrapper .fa-eye-slash {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
       cursor: pointer;
+      color: #888;
+      font-size: 18px;
+      user-select: none;
+    }
+
+    /* Submit Button */
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      background-color: #660B05;
+      border: none;
+      border-radius: 15px;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      margin-top: 10px;
       transition: background-color 0.3s ease;
     }
-    input[type="submit"]:hover {
-      background-color: #45a049;
+
+    .btn-submit:hover {
+      background-color: #0056b3;
     }
-    .error-message {
-      color: #d9534f;
-      margin-bottom: 15px;
+
+    /* Messages & Links */
+    .message {
       text-align: center;
+      margin-bottom: 15px;
+      color: red;
+      font-weight: 500;
     }
-    p {
+
+    .bottom-text {
       text-align: center;
       margin-top: 15px;
-      color: #555;
+      font-size: 14px;
     }
-    p a {
-      color: #4CAF50;
+
+    .bottom-text a {
+      color: #007bff;
       text-decoration: none;
-      font-weight: bold;
     }
-    p a:hover {
+
+    .bottom-text a:hover {
       text-decoration: underline;
     }
 
-        .home-button {
-      background:#eee; 
-       color:#333; 
-       border:none; 
-       padding:10px 20px;
-       border-radius:5px;
-       cursor:pointer;
-       font-size:16px;
-       font-weight:bold;
+    /* Home Button */
+    .home-button {
+      background: #eee;
+      color: #333;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .home-button:hover {
+      background-color: #ddd;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .register-container {
+        position: static;
+        transform: none;
+        width: 90%;
+        margin: 40px auto;
+      }
+
+      .register-section::before {
+        background: rgba(0, 0, 0, 0.3);
+      }
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <h2>Sign In</h2>
-    <?php if ($error): ?>
-      <p class="error-message"><?= htmlspecialchars($error) ?></p>
-    <?php endif; ?>
-    <form method="POST" action="">
-      <div class="form-group">
-        <input type="email" name="email" placeholder="Email" required />
-      </div>
-      <div class="form-group">
-        <input type="password" name="password" placeholder="Password" required />
-      </div>
-      <input type="submit" value="Login" />
-    </form>
-    <p>Don't have an account? <a href="register.php">Register Here</a></p>
-      <form action="index.html" method="get" style="text-align:center; margin-top:10px;">
-      <button type="submit" class="home-button">
-        Back to Home
-      </button>
-    </form>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+  <div class="container-fluid">
+
+    <!-- Social Media -->
+    <div class="footer-social d-flex">
+      <a href="#"><i class="fab fa-facebook-f me-3" style="color: #3b5998;"></i></a> <!-- Facebook Blue -->
+      <a href="#"><i class="fab fa-twitter me-3" style="color: #1da1f2;"></i></a>     <!-- Twitter Blue -->
+      <a href="#"><i class="fab fa-linkedin-in me-3" style="color: #0077b5;"></i></a> <!-- LinkedIn Blue -->
+      <a href="#"><i class="fab fa-youtube" style="color: #ff0000;"></i></a>          <!-- YouTube Red -->
+    </div>
+
+
+    <!-- Hamburger button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto me-4">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="About-us.html">ABOUT</a></li>
+        <li class="nav-item"><a class="nav-link" href="Our-room.html">OUR ROOM</a></li>
+        <li class="nav-item"><a class="nav-link" href="Gallery.html">GALLERY</a></li>
+        <li class="nav-item"><a class="nav-link" href="Blog.html">BLOG</a></li>
+        <li class="nav-item"><a class="nav-link" href="Contact-us.html">CONTACT US</a></li>
+        <li class="nav-item"><a class="nav-link" href="login.php">Sign In</a></li>
+        <li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>
+      </ul>
+    </div>
+
   </div>
+</nav>
+
+</header>
+  <section class="register-section">
+    <div class="register-container">
+      <h2>Sign In</h2>
+
+      <?php if ($error): ?>
+        <p class="message"><?= htmlspecialchars($error) ?></p>
+      <?php endif; ?>
+
+      <form method="POST" action="">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-wrapper">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter your password"
+              required
+            />
+            <i class="fa-solid fa-eye" id="togglePassword" title="Show/Hide Password"></i>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Login</button>
+      </form>
+
+      <p class="bottom-text">Don't have an account? <a href="register.php">Register Here</a></p>
+
+      <form action="index.html" method="get">
+        <button type="submit" class="home-button">Back to Home</button>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    const togglePassword = document.querySelector("#togglePassword");
+    const passwordInput = document.querySelector("#password");
+
+    togglePassword.addEventListener("click", function () {
+      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+      passwordInput.setAttribute("type", type);
+
+      this.classList.toggle("fa-eye");
+      this.classList.toggle("fa-eye-slash");
+    });
+  </script>
 </body>
 </html>

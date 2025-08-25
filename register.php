@@ -61,11 +61,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <title>Register</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Coiny&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- FontAwesome CDN for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Bootstrap Icons (for amenities) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Slick Carousel CSS (Optional) -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 
   <style>
    /* Reset and Base Styles */
@@ -234,49 +238,44 @@ h2 {
 </head>
 
 <body>
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-black">
-      <div class="container-fluid">
-        <div class="footer-social">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
-      </div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navlist">
-          <ul class="navbar-nav me-4">
-            <li class="nav-item">
-              <a class="nav-link "href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="About-us.html">ABOUT</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Our-room.html">OUR HOME</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Gallery.html">GALLERY</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Blog.html">BLOG</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Contact-us.html">CONTACT US</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.php">Sign In</a>
-            </li>
-              <li class="nav-item">
-              <a class="nav-link" href="register.php">Register</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+ <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+  <div class="container-fluid">
+
+    <!-- Social Media -->
+    <div class="footer-social d-flex">
+      <a href="#"><i class="fab fa-facebook-f me-3" style="color: #3b5998;"></i></a> <!-- Facebook Blue -->
+      <a href="#"><i class="fab fa-twitter me-3" style="color: #1da1f2;"></i></a>     <!-- Twitter Blue -->
+      <a href="#"><i class="fab fa-linkedin-in me-3" style="color: #0077b5;"></i></a> <!-- LinkedIn Blue -->
+      <a href="#"><i class="fab fa-youtube" style="color: #ff0000;"></i></a>          <!-- YouTube Red -->
+    </div>
+
+
+    <!-- Hamburger button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto me-4">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="About-us.html">ABOUT</a></li>
+        <li class="nav-item"><a class="nav-link" href="Our-room.html">OUR ROOM</a></li>
+        <li class="nav-item"><a class="nav-link" href="Gallery.html">GALLERY</a></li>
+        <li class="nav-item"><a class="nav-link" href="Blog.html">BLOG</a></li>
+        <li class="nav-item"><a class="nav-link" href="Contact-us.html">CONTACT US</a></li>
+        <li class="nav-item"><a class="nav-link" href="login.php">Sign In</a></li>
+        <li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
 </header>
+
   <div class="register-section">
     <div class="register-container">
       <h2>Create New Account</h2>
@@ -331,6 +330,11 @@ h2 {
       </form>
     </div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </body>
 </html>
 

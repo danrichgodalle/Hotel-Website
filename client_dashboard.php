@@ -4,14 +4,28 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
+
+// Example booked dates, dapat galing sa DB sa real app
+$bookedDates = [
+    "2025-09-10",
+    "2025-09-11",
+    "2025-09-15",
+    "2025-09-20",
+];
+
+// Convert booked dates array to JSON for JavaScript
+$bookedDatesJSON = json_encode($bookedDates);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>Client Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Flatpickr CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet" />
     <style>
         body {
             background-color: #f5f7fa;
@@ -20,11 +34,22 @@ if (!isset($_SESSION['username'])) {
         .navbar .nav-link {
             font-size: 18px;
             font-weight: 500;
+            color: rgba(255,255,255,0.85);
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .navbar .nav-link:hover {
+            color: #ffc107;
+            text-decoration: underline;
         }
 
         .navbar-text {
             font-size: 18px;
             margin-right: 10px;
+            color: #fff;
+            user-select: none;
         }
 
         .btn-sm {
@@ -39,7 +64,7 @@ if (!isset($_SESSION['username'])) {
         }
 
         .room-card img {
-            height: 200px;
+            height: 300px;
             object-fit: cover;
             border-top-left-radius: 0.375rem;
             border-top-right-radius: 0.375rem;
@@ -55,7 +80,7 @@ if (!isset($_SESSION['username'])) {
             font-size: 25px;
             font-weight: 600;
             font-style: italic;
-            color: #000000ff;
+            color: #000000cc;
         }
 
         .card-text {
@@ -94,18 +119,71 @@ if (!isset($_SESSION['username'])) {
             font-size: 20px;
             font-weight: 600;
         }
+
+        /* Flatpickr inline calendar in modal */
+        #datePicker {
+            width: 100%;
+        }
+        
+        /* Modal calendar and image container */
+        .modal-body {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        
+        .calendar-container {
+            flex: 1 1 300px;
+            max-width: 400px;
+        }
+        
+        .calendar-image {
+            flex: 1 1 200px;
+            max-width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .calendar-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 576px) {
+            .modal-body {
+                flex-direction: column;
+            }
+            .calendar-image, .calendar-container {
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-    <a class="navbar-brand" href="#">Carrie Hotel</a>
-    <div class="collapse navbar-collapse">
+    <a class="navbar-brand" href="#">Caree Hotel</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto align-items-center">
             <li class="nav-item me-3">
                 <a href="my_bookings.php" class="nav-link">My Booking</a>
             </li>
+            <!-- Check Dates nav item with icon -->
+            <li class="nav-item me-3">
+                <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#checkDatesModal">
+                    <i class="bi bi-calendar-check"></i> Check Dates
+                </a>
+            </li>
+
             <li class="nav-item navbar-text text-white me-3">
                 Welcome, <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>
             </li>
@@ -147,12 +225,12 @@ if (!isset($_SESSION['username'])) {
     <div class="row" id="roomList">
         <?php
         $rooms = [
-            ["Deluxe Room", "Experience luxury with our deluxe rooms, featuring modern amenities and stunning views.", "image/carrie1.jpg", 2, 3500, ["Wi-Fi", "Smart TV", "Air Conditioner", "Mini Fridge", "Hair Dryer"]],
-            ["Superior Room", "Enjoy comfort and style in our superior rooms, perfect for business or leisure stays.", "image/carrie-hotel-main.png", 2, 3000, ["Wi-Fi", "Flat TV", "Air Conditioner"]],
-            ["Suite Room", "Indulge in our spacious suites, offering premium amenities and exceptional comfort.", "image/carrie-hotel-main.png", 4, 3000, ["Wi-Fi", "Bathtub", "Air Conditioner", "Jacuzzi", "Balcony"]],
-            ["Family Room", "Perfect for families, our family rooms provide ample space and convenience for everyone.", "image/carrie-hotel-main.png", 5, 1500, ["Wi-Fi", "TV", "Mini Kitchen", "Microwave"]],
-            ["Single Room", "Ideal for solo travelers, our single rooms offer comfort and privacy at great value.", "image/carrie-hotel-main.png", 1, 2000, ["Wi-Fi", "TV"]],
-            ["Executive Room", "Upgrade your stay in our executive rooms, designed for luxury and productivity.", "image/carrie-hotel-main.png", 2, 2500, ["Wi-Fi", "Work Desk", "Air Conditioner", "Coffee Maker"]],
+            ["Family Room", "Experience luxury with our deluxe rooms, featuring modern amenities and stunning views.", "image/carrie1.jpg", 2, 1300, ["Wi-Fi", "Smart TV", "Air Conditioner", "Mini Fridge", "Hair Dryer"]],
+            ["Standard Room", "Enjoy comfort and style in our superior rooms, perfect for business or leisure stays.", "image/standard-room.jpg", 2, 1700, ["Wi-Fi", "Flat TV", "Air Conditioner"]],
+            ["Premium Room", "Indulge in our spacious suites, offering premium amenities and exceptional comfort.", "image/premium-room.png", 4, 2500, ["Wi-Fi", "Bathtub", "Air Conditioner", "Jacuzzi", "Balcony"]],
+          ["Family Room", "Experience luxury with our deluxe rooms, featuring modern amenities and stunning views.", "image/carrie1.jpg", 2, 1300, ["Wi-Fi", "Smart TV", "Air Conditioner", "Mini Fridge", "Hair Dryer"]],
+            ["Standard Room", "Enjoy comfort and style in our superior rooms, perfect for business or leisure stays.", "image/standard-room.jpg", 2, 1700, ["Wi-Fi", "Flat TV", "Air Conditioner"]],
+            ["Premium Room", "Indulge in our spacious suites, offering premium amenities and exceptional comfort.", "image/premium-room.png", 4, 2500, ["Wi-Fi", "Bathtub", "Air Conditioner", "Jacuzzi", "Balcony"]],
         ];
 
         $iconMap = [
@@ -218,6 +296,32 @@ if (!isset($_SESSION['username'])) {
     </div>
 </div>
 
+<!-- Check Dates Modal -->
+<div class="modal fade" id="checkDatesModal" tabindex="-1" aria-labelledby="checkDatesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title d-flex align-items-center gap-2" id="checkDatesModalLabel">
+          <i class="bi bi-calendar-event-fill"></i> Check Reserved & Available Dates
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="calendar-container">
+            <input type="text" id="datePicker" class="form-control" placeholder="Select a date" readonly>
+            <small class="text-muted mt-2 d-block">Booked dates are disabled.</small>
+        </div>
+        <div class="calendar-image">
+            <img src="image/carrie-hotel-main.png" alt="Superior Room" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Logout Confirmation Modal -->
 <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -241,52 +345,75 @@ if (!isset($_SESSION['username'])) {
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <script>
     function toggleAmenities(id) {
         const moreDiv = document.getElementById('more-' + id);
-        const seeMoreSpan = moreDiv.nextElementSibling || document.querySelector(`.see-more[onclick*="${id}"]`);
-
-        if (moreDiv.classList.contains('show')) {
-            moreDiv.classList.remove('show');
-            moreDiv.style.display = 'none';
-            seeMoreSpan.textContent = 'See More';
-            seeMoreSpan.setAttribute('aria-expanded', 'false');
-        } else {
-            moreDiv.classList.add('show');
+        const seeMoreSpan = moreDiv.nextElementSibling;
+        if (moreDiv.style.display === 'none' || moreDiv.style.display === '') {
             moreDiv.style.display = 'block';
             seeMoreSpan.textContent = 'See Less';
             seeMoreSpan.setAttribute('aria-expanded', 'true');
+        } else {
+            moreDiv.style.display = 'none';
+            seeMoreSpan.textContent = 'See More';
+            seeMoreSpan.setAttribute('aria-expanded', 'false');
         }
     }
 
     function applyFilter() {
-        const minCapacity = parseInt(document.getElementById('minCapacity').value) || 0;
-        const maxPrice = parseInt(document.getElementById('maxPrice').value) || Infinity;
-
+        const minCap = parseInt(document.getElementById('minCapacity').value) || 0;
+        const maxPrice = parseInt(document.getElementById('maxPrice').value) || Number.MAX_SAFE_INTEGER;
         const rooms = document.querySelectorAll('.room-item');
+        let anyVisible = false;
 
         rooms.forEach(room => {
-            const capacity = parseInt(room.getAttribute('data-capacity'));
+            const cap = parseInt(room.getAttribute('data-capacity'));
             const price = parseInt(room.getAttribute('data-price'));
 
-            if (capacity >= minCapacity && price <= maxPrice) {
+            if (cap >= minCap && price <= maxPrice) {
                 room.style.display = '';
+                anyVisible = true;
             } else {
                 room.style.display = 'none';
             }
         });
+
+        if (!anyVisible) {
+            alert('No rooms found matching your criteria.');
+        }
     }
 
+    // Show 3 rooms initially, view more shows all
+    let roomsShown = 3;
     function viewMoreRooms() {
-        const roomList = document.getElementById('roomList');
-        const currentRooms = Array.from(roomList.children);
-        currentRooms.forEach(room => {
-            const clone = room.cloneNode(true);
-            roomList.appendChild(clone);
-        });
-        document.getElementById('viewMoreBtn').disabled = true;
-        document.getElementById('viewMoreBtn').textContent = "No More Rooms";
+        const rooms = document.querySelectorAll('.room-item');
+        rooms.forEach(room => room.style.display = '');
+        document.getElementById('viewMoreBtn').style.display = 'none';
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initially show only 3 rooms
+        const rooms = document.querySelectorAll('.room-item');
+        rooms.forEach((room, idx) => {
+            if (idx >= roomsShown) {
+                room.style.display = 'none';
+            }
+        });
+
+        // Initialize Flatpickr on modal input
+        const bookedDates = <?= $bookedDatesJSON ?>;
+        flatpickr("#datePicker", {
+            inline: true,
+            disable: bookedDates,
+            dateFormat: "Y-m-d",
+            onChange: function(selectedDates, dateStr, instance) {
+                console.log("Selected date:", dateStr);
+            }
+        });
+    });
 </script>
 </body>
 </html>
