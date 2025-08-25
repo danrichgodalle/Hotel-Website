@@ -1,34 +1,35 @@
 <?php
 session_start();
-require 'db.php';
+require 'db.php';  // siguraduhing tama path ng database connection file
 
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $email = trim($_POST["email"]);
-  $password = $_POST["password"];
+    $email = trim($_POST["email"]);
+    $password = $_POST["password"];
 
-  $sql = "SELECT * FROM clients WHERE email = ?";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("s", $email);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  if ($result->num_rows == 1) {
-    $user = $result->fetch_assoc();
+    $sql = "SELECT * FROM clients WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if (password_verify($password, $user["password"])) {
-      $_SESSION['username'] = $user['username'];
-      $_SESSION['email'] = $user['email'];
-      header("Location: client_dashboard.php");
-      exit();
+    if ($result->num_rows == 1) {
+        $user = $result->fetch_assoc();
+
+        if (password_verify($password, $user["password"])) {
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['email'] = $user['email'];
+            header("Location: client_dashboard.php");
+            exit();
+        } else {
+            $error = "Invalid password.";
+        }
     } else {
-      $error = "Invalid password.";
+        $error = "No account found.";
     }
-  } else {
-    $error = "No account found.";
-  }
 
-  $stmt->close();
+    $stmt->close();
 }
 ?>
 
@@ -39,20 +40,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Coiny&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-  <!-- Font Awesome for eye icon -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Coiny&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
-    /* Reset & Base */
+      /* Reset & Base */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -227,101 +222,114 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
-  <div class="container-fluid">
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+    <div class="container-fluid">
 
-    <!-- Social Media -->
-    <div class="footer-social d-flex">
-      <a href="#"><i class="fab fa-facebook-f me-3" style="color: #3b5998;"></i></a> <!-- Facebook Blue -->
-      <a href="#"><i class="fab fa-twitter me-3" style="color: #1da1f2;"></i></a>     <!-- Twitter Blue -->
-      <a href="#"><i class="fab fa-linkedin-in me-3" style="color: #0077b5;"></i></a> <!-- LinkedIn Blue -->
-      <a href="#"><i class="fab fa-youtube" style="color: #ff0000;"></i></a>          <!-- YouTube Red -->
+      <!-- Social Media -->
+      <div class="footer-social d-flex">
+        <a href="#"><i class="fab fa-facebook-f me-3" style="color: #3b5998;"></i></a>
+        <a href="#"><i class="fab fa-twitter me-3" style="color: #1da1f2;"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in me-3" style="color: #0077b5;"></i></a>
+        <a href="#"><i class="fab fa-youtube" style="color: #ff0000;"></i></a>
+      </div>
+
+      <!-- Hamburger button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Collapsible links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto me-4">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="About-us.html">ABOUT</a></li>
+          <li class="nav-item"><a class="nav-link" href="Our-room.html">OUR ROOM</a></li>
+          <li class="nav-item"><a class="nav-link" href="Gallery.html">GALLERY</a></li>
+          <li class="nav-item"><a class="nav-link" href="Blog.html">BLOG</a></li>
+          <li class="nav-item"><a class="nav-link" href="Contact-us.html">CONTACT US</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.php">Sign In</a></li>
+          <li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>
+        </ul>
+      </div>
+
     </div>
-
-
-    <!-- Hamburger button -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Collapsible links -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto me-4">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="About-us.html">ABOUT</a></li>
-        <li class="nav-item"><a class="nav-link" href="Our-room.html">OUR ROOM</a></li>
-        <li class="nav-item"><a class="nav-link" href="Gallery.html">GALLERY</a></li>
-        <li class="nav-item"><a class="nav-link" href="Blog.html">BLOG</a></li>
-        <li class="nav-item"><a class="nav-link" href="Contact-us.html">CONTACT US</a></li>
-        <li class="nav-item"><a class="nav-link" href="login.php">Sign In</a></li>
-        <li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>
-      </ul>
-    </div>
-
-  </div>
-</nav>
-
+  </nav>
 </header>
-  <section class="register-section">
-    <div class="register-container">
-      <h2>Sign In</h2>
 
-      <?php if ($error): ?>
-        <p class="message"><?= htmlspecialchars($error) ?></p>
-      <?php endif; ?>
+<section class="register-section">
+  <div class="register-container">
+    <h2>Sign In</h2>
 
-      <form method="POST" action="">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <div class="input-wrapper">
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Enter your email"
-              required
-            />
-          </div>
+    <?php if ($error): ?>
+      <p class="message"><?= htmlspecialchars($error) ?></p>
+    <?php endif; ?>
+
+    <form method="POST" action="" autocomplete="off" novalidate>
+      <!-- Hidden fake inputs to prevent autofill -->
+      <input style="display:none" type="text" name="fakeusernameremembered" />
+      <input style="display:none" type="password" name="fakepasswordremembered" />
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-wrapper">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Enter your email"
+            autocomplete="new-password"
+            required
+          />
         </div>
+      </div>
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <div class="input-wrapper">
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Enter your password"
-              required
-            />
-            <i class="fa-solid fa-eye" id="togglePassword" title="Show/Hide Password"></i>
-          </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Enter your password"
+            autocomplete="new-password"
+            required
+          />
+          <i class="fa-solid fa-eye" id="togglePassword" title="Show/Hide Password"></i>
         </div>
+      </div>
 
-        <button type="submit" class="btn-submit">Login</button>
-      </form>
+      <button type="submit" class="btn-submit">Login</button>
+    </form>
 
-      <p class="bottom-text">Don't have an account? <a href="register.php">Register Here</a></p>
+    <p class="bottom-text">Don't have an account? <a href="register.php">Register Here</a></p>
 
-      <form action="index.html" method="get">
-        <button type="submit" class="home-button">Back to Home</button>
-      </form>
-    </div>
-  </section>
+    <form action="index.html" method="get">
+      <button type="submit" class="home-button">Back to Home</button>
+    </form>
+  </div>
+</section>
 
-  <script>
-    const togglePassword = document.querySelector("#togglePassword");
-    const passwordInput = document.querySelector("#password");
+<script>
+  // Clear inputs on page load para hindi mag-retain ang value
+  window.onload = function() {
+    document.getElementById('email').value = '';
+    document.getElementById('password').value = '';
+  };
 
-    togglePassword.addEventListener("click", function () {
-      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-      passwordInput.setAttribute("type", type);
+  // Toggle password visibility
+  const togglePassword = document.querySelector("#togglePassword");
+  const passwordInput = document.querySelector("#password");
 
-      this.classList.toggle("fa-eye");
-      this.classList.toggle("fa-eye-slash");
-    });
-  </script>
+  togglePassword.addEventListener("click", function () {
+    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+    passwordInput.setAttribute("type", type);
+
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash");
+  });
+</script>
+
 </body>
 </html>
